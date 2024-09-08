@@ -95,6 +95,8 @@ export class ComboPage extends Component {
                 name: this.state.selectedProduct.name,
                 variants: { ...this.env.selectedValues },
                 customValues: { ...this.env.customValues },
+                note: "",  // Initialize note field
+
             },
         };
         if (index !== -1) {
@@ -152,6 +154,7 @@ export class ComboPage extends Component {
                 uuid: null,
                 qty: this.state.qty,
                 product_id: combo.product.id,
+                customer_note: combo.product.note,
                 attribute_value_ids: attributeFlatter(combo.product.variants),
                 custom_attribute_value_ids: Object.values(combo.product.customValues),
                 combo_parent_uuid: parent_line.uuid,
@@ -179,6 +182,9 @@ export class ComboPage extends Component {
         this.state.editMode = true;
         this.state.showQtyButtons = false;
     }
+
+    
+    
 
     get showQtyButtons() {
         return this.state.showQtyButtons && this.props.product.self_order_available;

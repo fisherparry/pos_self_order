@@ -41,11 +41,9 @@
                             </span>
                         </div>
                         <div class="position-absolute start-50 d-none d-md-block mt-3 translate-middle text-nowrap" t-esc="selfOrder.comboByIds[combo_id].name" />
+                        
                     </div>
-                     <div class="note-input mt-3">
-                        <label for="internalNote">Special Requests:</label>
-                        <textarea id="internalNote" t-model="state.note" placeholder="Enter any special requests here..."></textarea>
-                    </div>
+                    
                 </div>
             </section>
             <t t-if="state.selectedProduct">
@@ -74,9 +72,9 @@
             <div t-if="!state.showResume" class="d-flex flex-column flex-grow-1" t-attf-class="{{ state.selectedProduct ? '' : '' }}">
                 <ComboSelection combo="currentCombo" comboState="state" next.bind="next"/>
             </div>
+
             <div t-else="" t-attf-class="o_kiosk-combo d-flex flex-column flex-grow-1 px-3">
                 <h2 class="attribute_name mt-5 mb-3 fw-bold">Your Selection</h2>
-
                 <ul class="list-group">
                     <li class="list-group-item d-flex flex-wrap align-items-start gap-3" t-foreach="state.selectedCombos" t-as="combo" t-key="combo.id">
                         <t t-set="product" t-value="this.selfOrder.productByIds[combo.product.id]"/>
@@ -99,28 +97,23 @@
                                         <span t-esc="attribute.name" /> : <span t-esc="attribute.value" />
                                     </li>
                                 </ul>
+                                
+                                <!-- Note input field -->
+                                <div class="mt-2">
+                                    <input type="text" t-model="combo.product.note" class="form-control" placeholder="Add a note..."/>
+                                </div>
                             </div>
                         </div>
                         <button class="btn btn-secondary ms-auto" t-on-click="() => this.editCombo(combo.id)">Edit</button>
-
                     </li>
                 </ul>
             </div>
+
             <t t-if="state.showResume">
-                <div class="bg-view p-3 text-end">
-                    <div class="o_self_order_incr_button btn-group" role="group" aria-label="Quantity select">
-                        <button type="button"
-                            t-on-click = "() => this.changeQuantity(false)"
-                            t-attf-class="btn btn-secondary btn-lg"><span class="fs-2 lh-1 fa-fw d-inline-block">－</span></button>
-                        <div class="o-so-tabular-nums d-flex align-items-center px-3 text-bg-200" t-esc="state.qty"/>
-                        <button type="button"
-                            t-on-click = "() => this.changeQuantity(true)"
-                            class="btn btn-secondary btn-lg"><span class="fs-2 lh-1 fa-fw d-inline-block">＋</span></button>
-                    </div>
-                </div>
-                
+                <!-- Quantity selection and add to cart button -->
             </t>
         </div>
+
         <div
             t-if="state.showResume || (!state.showResume and showQtyButtons)"
             class="page-buttons d-flex justify-content-end gap-3 p-3 border-top bg-view">
